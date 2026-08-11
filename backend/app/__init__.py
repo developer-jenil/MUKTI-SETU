@@ -1,0 +1,1 @@
+"""MUKTI-SETU backend package."""

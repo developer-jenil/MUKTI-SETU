@@ -1,0 +1,10 @@
+{
+  "source": "e-Prisons (Prison)",
+  "entries": [
+    {"case_id": "CASE-1042", "field": "custody_start", "value": "2024-01-17", "confidence": 0.94, "note": "Prison admission register entry (2-day difference)"},
+    {"case_id": "CASE-2088", "field": "custody_start", "value": "2023-08-03", "confidence": 0.95},
+    {"case_id": "CASE-3156", "field": "custody_start", "value": "2025-02-10", "confidence": 0.92},
+    {"case_id": "CASE-4471", "field": "maximum_sentence_years", "value": 2, "confidence": 0.96},
+    {"case_id": "CASE-5099", "field": "custody_start", "value": "2022-11-20", "confidence": 0.88, "note": "Register entry predates FIR by 2 days"}
+  ]
+}

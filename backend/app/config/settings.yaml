@@ -1,0 +1,27 @@
+# MUKTI-SETU configuration — mode: CLOUD | LOCAL | HYBRID
+#   CLOUD  : Postgres + Groq LLM required (raise if unavailable)
+#   LOCAL  : mock persistence + conservative fallbacks only (offline demo)
+#   HYBRID : use Postgres/Groq when available, degrade gracefully otherwise (default)
+mode: HYBRID
+
+app:
+  name: MUKTI-SETU
+  version: 0.2.0
+
+ocr:
+  provider: mock          # mock | easyocr (easyocr is optional — see requirements-ocr.txt)
+  languages: [en, hi]
+
+llm:
+  provider: groq          # groq | fallback
+  model: llama3-70b-8192
+  min_confidence: 0.90    # below this -> flag for HUMAN_REVIEW
+  timeout_seconds: 15
+
+db:
+  url_env: DATABASE_URL
+  require_connection: false   # forced true in CLOUD mode
+
+policy:
+  truth_discovery_min_confidence: 0.85
+  approaching_threshold_percent: 80

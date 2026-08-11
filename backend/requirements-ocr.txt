@@ -1,0 +1,6 @@
+# Optional local OCR (Hindi + English). Heavy: pulls in PyTorch.
+# Install only if you want real OCR in LOCAL mode:
+#   pip install -r requirements-ocr.txt
+# Then set OCR_PROVIDER=easyocr in the environment.
+easyocr==1.7.2
+pymupdf==1.25.1

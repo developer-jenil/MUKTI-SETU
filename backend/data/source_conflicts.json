@@ -1,0 +1,4 @@
+{
+  "CASE-1042": [{"field":"custody_start","source":"court_order","value":"2024-01-15","confidence":0.98},{"field":"custody_start","source":"prison_register","value":"2024-01-17","confidence":0.94},{"field":"first_time_offender","source":"court_order","value":true,"confidence":0.91}],
+  "CASE-2088": [{"field":"maximum_sentence_years","source":"court_order","value":5,"confidence":0.96},{"field":"maximum_sentence_years","source":"ocr","value":7,"confidence":0.61}]
+}

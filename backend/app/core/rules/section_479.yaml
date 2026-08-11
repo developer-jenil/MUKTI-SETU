@@ -1,0 +1,56 @@
+# Section 479 BNSS — Deterministic Statutory Bail Rules
+# The LLM NEVER calculates eligibility. Only this file + the rule engine decide.
+# Human verification is mandatory for every outcome (policy.require_human_review).
+
+section: "BNSS Section 479"
+version: "2023-demo-v1"
+description: "Deterministic undertrial detention threshold rules. Human verification is mandatory."
+day_basis: 365
+
+legal_basis:
+  exclusion_death_life: "S.479(1) opening exclusion"
+  exclusion_multiple: "S.479(2)"
+  absolute_cap: "S.479(1) third proviso"
+  first_time: "S.479(1) first proviso"
+  general: "S.479(1)"
+
+# Evaluated in priority order: opening exclusion -> delay confirmation ->
+# maximum-period proviso -> multiple proceedings -> thresholds.
+exclusions:
+  - code: CAPITAL_OR_LIFE_OFFENCE
+    field: punishable_by_death_or_life
+    message: "Section 479 relief is unavailable where death or life imprisonment is specified as a punishment."
+    legal_basis: "S.479(1) opening exclusion"
+  - code: MULTIPLE_PENDING_PROCEEDINGS
+    field: multiple_pending_cases
+    message: "Release cannot be recommended while proceedings in more than one offence or case are pending."
+    legal_basis: "S.479(2)"
+
+# The third proviso prevents detention beyond the maximum sentence. This is a
+# statutory maximum-period review, not an automatic release decision.
+absolute_cap:
+  flag: ABSOLUTE_CAP_EXCEEDED
+  outcome: MAXIMUM_PERIOD_REVIEW
+  legal_basis: "S.479(1) third proviso"
+  message: "Qualifying detention equals or exceeds the maximum sentence period. Immediate court review is required."
+
+thresholds:
+  first_time_offender:
+    numerator: 1
+    denominator: 3
+    outcome: RELEASE_ON_BOND_RECOMMENDED
+    legal_basis: "S.479(1) first proviso"
+    message: "First-time offender has served one-third of the maximum sentence."
+  other_undertrial:
+    numerator: 1
+    denominator: 2
+    outcome: BAIL_APPLICATION_DUE
+    legal_basis: "S.479(1)"
+    message: "Undertrial has served one-half of the maximum sentence."
+
+policy:
+  count_pretrial_detention_only: true
+  exclude_accused_caused_delay: true
+  require_human_review: true
+  never_auto_release: true
+  approaching_threshold_percent: 80

@@ -1,0 +1,79 @@
+# Golden Test Suite — Section 479 BNSS Rule Engine (GT-01..GT-05)
+# Runs in isolation: no OCR, no LLM, no database. Hardcoded facts only.
+tests:
+  - id: GT-01
+    name: "Life-imprisonment offence is excluded (S.479(1) Proviso)"
+    input:
+      case_id: GT-01
+      first_time_offender: false
+      multiple_pending_cases: false
+      punishable_by_death_or_life: true
+      maximum_sentence_years: 10
+      detention_days: 2190
+    expected:
+      status: INELIGIBLE
+      eligible: false
+      exclusions: [CAPITAL_OR_LIFE_OFFENCE]
+      flags: []
+
+  - id: GT-02
+    name: "Custody reaches maximum sentence period (S.479(1) third proviso)"
+    input:
+      case_id: GT-02
+      first_time_offender: true
+      multiple_pending_cases: false
+      punishable_by_death_or_life: false
+      maximum_sentence_years: 3
+      detention_days: 1096
+    expected:
+      status: ELIGIBLE_FLAGGED
+      eligible: true
+      flags: [ABSOLUTE_CAP_EXCEEDED]
+      outcome: MAXIMUM_PERIOD_REVIEW
+
+  - id: GT-03
+    name: "Multiple pending cases prevent recommendation (S.479(2))"
+    input:
+      case_id: GT-03
+      first_time_offender: true
+      multiple_pending_cases: true
+      punishable_by_death_or_life: false
+      maximum_sentence_years: 3
+      detention_days: 500
+    expected:
+      status: INELIGIBLE
+      eligible: false
+      exclusions: [MULTIPLE_PENDING_PROCEEDINGS]
+      flags: []
+
+  - id: GT-04
+    name: "First-time offender reaches one-third threshold (S.479(1) first proviso)"
+    input:
+      case_id: GT-04
+      first_time_offender: true
+      multiple_pending_cases: false
+      punishable_by_death_or_life: false
+      maximum_sentence_years: 3
+      detention_days: 366
+    expected:
+      status: ELIGIBLE
+      eligible: true
+      threshold_days: 365
+      outcome: RELEASE_ON_BOND_RECOMMENDED
+      flags: []
+
+  - id: GT-05
+    name: "Other undertrial reaches one-half threshold (S.479(1))"
+    input:
+      case_id: GT-05
+      first_time_offender: false
+      multiple_pending_cases: false
+      punishable_by_death_or_life: false
+      maximum_sentence_years: 3
+      detention_days: 548
+    expected:
+      status: ELIGIBLE
+      eligible: true
+      threshold_days: 548
+      outcome: BAIL_APPLICATION_DUE
+      flags: []

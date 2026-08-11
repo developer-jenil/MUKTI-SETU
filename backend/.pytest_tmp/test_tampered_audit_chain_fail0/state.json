@@ -1,0 +1,177 @@
+{
+  "prisoners": [
+    {
+      "id": "P-1042",
+      "name": "Aarav Kumar",
+      "prison_number": "TNP-1042",
+      "age": 29,
+      "gender": "Male",
+      "prison_name": "Central Prison, Puzhal",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "risk": "Low"
+    },
+    {
+      "id": "P-2088",
+      "name": "Meera Devi",
+      "prison_number": "UP-2088",
+      "age": 34,
+      "gender": "Female",
+      "prison_name": "District Jail, Lucknow",
+      "district": "Lucknow",
+      "state": "Uttar Pradesh",
+      "risk": "Low"
+    },
+    {
+      "id": "P-3156",
+      "name": "Imran Khan",
+      "prison_number": "MH-3156",
+      "age": 41,
+      "gender": "Male",
+      "prison_name": "Yerwada Central Prison",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "risk": "Medium"
+    },
+    {
+      "id": "P-4471",
+      "name": "Sita Lakra",
+      "prison_number": "JH-4471",
+      "age": 26,
+      "gender": "Female",
+      "prison_name": "Birsa Munda Central Jail",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "risk": "Low"
+    },
+    {
+      "id": "P-5099",
+      "name": "Rohit Das",
+      "prison_number": "WB-5099",
+      "age": 52,
+      "gender": "Male",
+      "prison_name": "Presidency Correctional Home",
+      "district": "Kolkata",
+      "state": "West Bengal",
+      "risk": "High"
+    }
+  ],
+  "cases": [
+    {
+      "id": "CASE-1042",
+      "prisoner_id": "P-1042",
+      "fir_number": "FIR 221/2024",
+      "court": "Sessions Court, Chennai",
+      "sections": [
+        "IPC 379",
+        "IPC 411"
+      ],
+      "custody_start": "2024-01-15",
+      "maximum_sentence_years": 3,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-18",
+      "documents": 6
+    },
+    {
+      "id": "CASE-2088",
+      "prisoner_id": "P-2088",
+      "fir_number": "FIR 88/2023",
+      "court": "District Court, Lucknow",
+      "sections": [
+        "IPC 420"
+      ],
+      "custody_start": "2023-08-02",
+      "maximum_sentence_years": 5,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-21",
+      "documents": 8
+    },
+    {
+      "id": "CASE-3156",
+      "prisoner_id": "P-3156",
+      "fir_number": "FIR 19/2025",
+      "court": "Sessions Court, Pune",
+      "sections": [
+        "IPC 307"
+      ],
+      "custody_start": "2025-02-10",
+      "maximum_sentence_years": 10,
+      "first_time_offender": false,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-12",
+      "documents": 4
+    },
+    {
+      "id": "CASE-4471",
+      "prisoner_id": "P-4471",
+      "fir_number": "FIR 304/2024",
+      "court": "Special Court, Ranchi",
+      "sections": [
+        "IPC 323"
+      ],
+      "custody_start": "2024-03-01",
+      "maximum_sentence_years": 2,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-09-04",
+      "documents": 5
+    },
+    {
+      "id": "CASE-5099",
+      "prisoner_id": "P-5099",
+      "fir_number": "FIR 71/2022",
+      "court": "Sessions Court, Kolkata",
+      "sections": [
+        "IPC 302"
+      ],
+      "custody_start": "2022-11-22",
+      "maximum_sentence_years": 10,
+      "first_time_offender": false,
+      "multiple_pending_cases": true,
+      "punishable_by_death_or_life": true,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-29",
+      "documents": 11
+    }
+  ],
+  "decisions": {},
+  "workflow_events": {
+    "CASE-TAMPER": [
+      {
+        "case_id": "CASE-TAMPER",
+        "action": "submit",
+        "actor": "System",
+        "actor_id": "System",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:07.314376+00:00",
+        "previous_event_hash": null,
+        "event_hash": "6d6c0dc5236ff5002f5f6ac54377a4a1c920054a6c0953b46f2aef8824b76576",
+        "signature": "3bf91f7a5948cbd8f13a95476e210ae2b0363ff8a1175ab1c29e2cb6371c43f6"
+      },
+      {
+        "case_id": "CASE-TAMPER",
+        "action": "verify",
+        "actor": "Officer A",
+        "actor_id": "attacker",
+        "actor_role": "LEGAL_OFFICER",
+        "note": "",
+        "at": "2026-08-10T15:15:07.320065+00:00",
+        "previous_event_hash": "6d6c0dc5236ff5002f5f6ac54377a4a1c920054a6c0953b46f2aef8824b76576",
+        "event_hash": "563ca5c13c4e9fcf6c601bf1001405f46218c9e4f302fdcb1147777a06830585",
+        "signature": "6ae3a9d5957710bb297f45ad8b201ac9bce44c86f3db9cf94f5fb82544d0baf0"
+      }
+    ]
+  },
+  "truth_discovery": {}
+}

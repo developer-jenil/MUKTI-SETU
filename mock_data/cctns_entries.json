@@ -1,0 +1,11 @@
+{
+  "source": "CCTNS (Police)",
+  "entries": [
+    {"case_id": "CASE-1042", "field": "custody_start", "value": "2024-01-15", "confidence": 0.95, "note": "Arrest date per FIR 221/2024"},
+    {"case_id": "CASE-1042", "field": "first_time_offender", "value": true, "confidence": 0.88},
+    {"case_id": "CASE-2088", "field": "custody_start", "value": "2023-08-02", "confidence": 0.97},
+    {"case_id": "CASE-3156", "field": "maximum_sentence_years", "value": 10, "confidence": 0.99},
+    {"case_id": "CASE-4471", "field": "custody_start", "value": "2024-03-01", "confidence": 0.93},
+    {"case_id": "CASE-5099", "field": "custody_start", "value": "2022-11-22", "confidence": 0.90}
+  ]
+}

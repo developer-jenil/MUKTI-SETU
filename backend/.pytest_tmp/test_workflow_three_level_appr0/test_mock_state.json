@@ -1,0 +1,421 @@
+{
+  "prisoners": [
+    {
+      "id": "P-1042",
+      "name": "Aarav Kumar",
+      "prison_number": "TNP-1042",
+      "age": 29,
+      "gender": "Male",
+      "prison_name": "Central Prison, Puzhal",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "risk": "Low"
+    },
+    {
+      "id": "P-2088",
+      "name": "Meera Devi",
+      "prison_number": "UP-2088",
+      "age": 34,
+      "gender": "Female",
+      "prison_name": "District Jail, Lucknow",
+      "district": "Lucknow",
+      "state": "Uttar Pradesh",
+      "risk": "Low"
+    },
+    {
+      "id": "P-3156",
+      "name": "Imran Khan",
+      "prison_number": "MH-3156",
+      "age": 41,
+      "gender": "Male",
+      "prison_name": "Yerwada Central Prison",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "risk": "Medium"
+    },
+    {
+      "id": "P-4471",
+      "name": "Sita Lakra",
+      "prison_number": "JH-4471",
+      "age": 26,
+      "gender": "Female",
+      "prison_name": "Birsa Munda Central Jail",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "risk": "Low"
+    },
+    {
+      "id": "P-5099",
+      "name": "Rohit Das",
+      "prison_number": "WB-5099",
+      "age": 52,
+      "gender": "Male",
+      "prison_name": "Presidency Correctional Home",
+      "district": "Kolkata",
+      "state": "West Bengal",
+      "risk": "High"
+    },
+    {
+      "id": "TN-DEMO-701",
+      "prison_number": "TN-DEMO-701",
+      "name": "Rohan Mehta",
+      "gender": "Male",
+      "age": 31,
+      "prison_name": "Central Prison, Puzhal",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "is_uploaded": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "CASE-1042",
+      "prisoner_id": "P-1042",
+      "fir_number": "FIR 221/2024",
+      "court": "Sessions Court, Chennai",
+      "sections": [
+        "IPC 379",
+        "IPC 411"
+      ],
+      "custody_start": "2024-01-15",
+      "maximum_sentence_years": 3,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-18",
+      "documents": 6
+    },
+    {
+      "id": "CASE-2088",
+      "prisoner_id": "P-2088",
+      "fir_number": "FIR 88/2023",
+      "court": "District Court, Lucknow",
+      "sections": [
+        "IPC 420"
+      ],
+      "custody_start": "2023-08-02",
+      "maximum_sentence_years": 5,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-21",
+      "documents": 8
+    },
+    {
+      "id": "CASE-3156",
+      "prisoner_id": "P-3156",
+      "fir_number": "FIR 19/2025",
+      "court": "Sessions Court, Pune",
+      "sections": [
+        "IPC 307"
+      ],
+      "custody_start": "2025-02-10",
+      "maximum_sentence_years": 10,
+      "first_time_offender": false,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-12",
+      "documents": 4
+    },
+    {
+      "id": "CASE-4471",
+      "prisoner_id": "P-4471",
+      "fir_number": "FIR 304/2024",
+      "court": "Special Court, Ranchi",
+      "sections": [
+        "IPC 323"
+      ],
+      "custody_start": "2024-03-01",
+      "maximum_sentence_years": 2,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-09-04",
+      "documents": 5
+    },
+    {
+      "id": "CASE-5099",
+      "prisoner_id": "P-5099",
+      "fir_number": "FIR 71/2022",
+      "court": "Sessions Court, Kolkata",
+      "sections": [
+        "IPC 302"
+      ],
+      "custody_start": "2022-11-22",
+      "maximum_sentence_years": 10,
+      "first_time_offender": false,
+      "multiple_pending_cases": true,
+      "punishable_by_death_or_life": true,
+      "case_status": "Undertrial",
+      "next_hearing": "2026-08-29",
+      "documents": 11
+    },
+    {
+      "id": "CASE-UPLOAD-314",
+      "prisoner_id": "TN-DEMO-701",
+      "fir_number": "314/2026",
+      "court": "Sessions Court",
+      "sections": [
+        "IPC 379",
+        "IPC 411"
+      ],
+      "custody_start": "2024-01-15",
+      "maximum_sentence_years": 3,
+      "first_time_offender": true,
+      "multiple_pending_cases": false,
+      "punishable_by_death_or_life": false,
+      "next_hearing": "2026-08-18",
+      "documents": 1,
+      "documents_list": [
+        {
+          "filename": "case_314_intake.txt",
+          "uploaded_at": "2026-08-10T15:15:06.902013+00:00",
+          "fir_number": "314/2026",
+          "text_preview": "\nIN THE COURT OF THE SESSIONS JUDGE, CHENNAI\n\nCase ID: CASE-UPLOAD-314\nFIR 314/2026\n\nPrisoner Name: Rohan Mehta\nPrisoner Number: TN-DEMO-701\nAge: 31\nGender: Male\nPrison Name: Central Prison, Puzhal\nDistrict: Chennai\nState: Tamil Nadu\n\nSections: IPC 379, IPC 411\nCase Status: Undertrial\nCustody Start: 2024-01-15\nMaximum Sentence Years: 3\nFirst-time Offender: Yes\nMultiple Pending Cases: No\nPunishable by Death or Life Imprisonment: No\nNext Hearing: 2026-08-18\n\nThe matter was adjourned because the co",
+          "adjournment": {
+            "classification": "COURT_DELAY",
+            "confidence": 0.6,
+            "delay_caused_by": "court",
+            "flag": "HUMAN_REVIEW_REQUIRED",
+            "note": "Keyword-matched court delay; offline estimate, verify manually."
+          },
+          "warnings": [],
+          "evidence": [],
+          "requires_human_review": true
+        }
+      ],
+      "is_uploaded": true,
+      "upload_analysis": {
+        "provider": "mock",
+        "llm_provider": "fallback",
+        "filename": "case_314_intake.txt",
+        "file_type": "txt",
+        "pages": 1,
+        "text_preview": "\nIN THE COURT OF THE SESSIONS JUDGE, CHENNAI\n\nCase ID: CASE-UPLOAD-314\nFIR 314/2026\n\nPrisoner Name: Rohan Mehta\nPrisoner Number: TN-DEMO-701\nAge: 31\nGender: Male\nPrison Name: Central Prison, Puzhal\nDistrict: Chennai\nState: Tamil Nadu\n\nSections: IPC 379, IPC 411\nCase Status: Undertrial\nCustody Start: 2024-01-15\nMaximum Sentence Years: 3\nFirst-time Offender: Yes\nMultiple Pending Cases: No\nPunishable by Death or Life Imprisonment: No\nNext Hearing: 2026-08-18\n\nThe matter was adjourned because the co",
+        "extracted": {
+          "fir_number": "314/2026"
+        },
+        "extracted_facts": {
+          "fir_number": "314/2026",
+          "case_id": "CASE-UPLOAD-314",
+          "prisoner_name": "Rohan Mehta",
+          "prisoner_number": "TN-DEMO-701",
+          "age": 31,
+          "gender": "Male",
+          "prison_name": "Central Prison, Puzhal",
+          "district": "Chennai",
+          "state": "Tamil Nadu",
+          "sections": [
+            "IPC 379",
+            "IPC 411"
+          ],
+          "custody_start": "2024-01-15",
+          "maximum_sentence_years": 3,
+          "first_time_offender": true,
+          "multiple_pending_cases": false,
+          "punishable_by_death_or_life": false,
+          "next_hearing": "2026-08-18",
+          "case_status": "Undertrial"
+        },
+        "evidence": [],
+        "adjournment": {
+          "classification": "COURT_DELAY",
+          "confidence": 0.6,
+          "delay_caused_by": "court",
+          "flag": "HUMAN_REVIEW_REQUIRED",
+          "note": "Keyword-matched court delay; offline estimate, verify manually."
+        },
+        "confidence": 0.65,
+        "warnings": [],
+        "requires_human_review": true
+      }
+    }
+  ],
+  "decisions": {
+    "CASE-UPLOAD-314": {
+      "case_id": "CASE-UPLOAD-314",
+      "status": "ELIGIBLE",
+      "outcome": "RELEASE_ON_BOND_RECOMMENDED",
+      "eligible": true,
+      "detention_days": 938,
+      "threshold_days": 365,
+      "days_remaining": 0,
+      "progress_percent": 100.0,
+      "qualifying_detention_days": 938,
+      "excluded_delay_days": 0,
+      "rule_version": "2023-demo-v1",
+      "legal_basis": "S.479(1) first proviso",
+      "reasons": [
+        "Qualifying detention of 938 days meets the 365-day threshold (First-time offender has served one-third of the maximum sentence.)."
+      ],
+      "exclusions": [],
+      "flags": [],
+      "trace": [
+        {
+          "step": "completeness",
+          "result": "PASS",
+          "detail": "All mandatory facts are present."
+        },
+        {
+          "step": "CAPITAL_OR_LIFE_OFFENCE",
+          "result": "PASS",
+          "detail": "Section 479 relief is unavailable where death or life imprisonment is specified as a punishment."
+        },
+        {
+          "step": "accused_delay",
+          "result": "NONE",
+          "detail": "No confirmed accused-caused delay excluded."
+        },
+        {
+          "step": "absolute_cap",
+          "result": "PASS",
+          "detail": "Detention below the 1095-day maximum sentence."
+        },
+        {
+          "step": "MULTIPLE_PENDING_PROCEEDINGS",
+          "result": "PASS",
+          "detail": "Release cannot be recommended while proceedings in more than one offence or case are pending."
+        },
+        {
+          "step": "threshold",
+          "result": "FIRST_TIME_OFFENDER",
+          "detail": "ceil(1095 x 1/3) = 365 days"
+        },
+        {
+          "step": "decision",
+          "result": "ELIGIBLE",
+          "detail": "Qualifying detention of 938 days meets the 365-day threshold (First-time offender has served one-third of the maximum sentence.)."
+        }
+      ],
+      "requires_human_review": true,
+      "generated_at": "2026-08-10T15:15:06.911563Z"
+    }
+  },
+  "workflow_events": {
+    "CASE-1042": [
+      {
+        "case_id": "CASE-1042",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:06.871297+00:00",
+        "previous_event_hash": null,
+        "event_hash": "dbe0c4da98e61f3461a4d1e8c93a53348202507e8320c15bf620dd8364b770e3",
+        "signature": "0f0f9470950ddc3834e3c7b0557675523fe9fe4e62055c1858d6bcb56731096e"
+      }
+    ],
+    "CASE-2088": [
+      {
+        "case_id": "CASE-2088",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:06.875607+00:00",
+        "previous_event_hash": null,
+        "event_hash": "14eb67a21debe443a81f843142beba39eb4b6f343e1ea20675646a77cd19c0ea",
+        "signature": "075afe7dfe18866979d31114702101d0ec0905495e0c6fd6a15bc2e133e58c87"
+      }
+    ],
+    "CASE-3156": [
+      {
+        "case_id": "CASE-3156",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:06.881007+00:00",
+        "previous_event_hash": null,
+        "event_hash": "17aa89cffc66ac2e7da8122f16cfded7473780c57e29742110354060dd4867e3",
+        "signature": "ac97750f436e7c3c56b6cb3880506893a07db7598ee2062c4114dbaf125f67e0"
+      }
+    ],
+    "CASE-4471": [
+      {
+        "case_id": "CASE-4471",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:06.886011+00:00",
+        "previous_event_hash": null,
+        "event_hash": "ac61e464d64a3ed902a3a25bc887d151a3478b0c797804789b8726f91867c15e",
+        "signature": "ba58c18915c0952edec9d27110cc49a4844a8e18f88a4f87e37ebd7642c31c25"
+      }
+    ],
+    "CASE-5099": [
+      {
+        "case_id": "CASE-5099",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "",
+        "at": "2026-08-10T15:15:06.891020+00:00",
+        "previous_event_hash": null,
+        "event_hash": "4670d7a24063de35d3f659d6518a5e19898438f0250e09f19c3e75e725aa74ae",
+        "signature": "912c8c32e25ba16d1b8a9544a107606b88a843966920de1ae886466eaa65a0b3"
+      }
+    ],
+    "CASE-UPLOAD-314": [
+      {
+        "case_id": "CASE-UPLOAD-314",
+        "action": "submit",
+        "actor": "System intake",
+        "actor_id": "System intake",
+        "actor_role": "SYSTEM",
+        "note": "Intake created from case_314_intake.txt",
+        "at": "2026-08-10T15:15:06.918073+00:00",
+        "previous_event_hash": null,
+        "event_hash": "c25fbf9e758021b0499d1b3408b3ecbce75ce93d030f113ae9330f1bad9a6994",
+        "signature": "6ac2902ff6ad867e17e9c8814f160770795cfa32893cfd15089283c61ac29cda"
+      },
+      {
+        "case_id": "CASE-UPLOAD-314",
+        "action": "verify",
+        "actor": "Legal Officer A",
+        "actor_id": "Legal Officer A",
+        "actor_role": "LEGAL_OFFICER",
+        "note": "Documents checked",
+        "at": "2026-08-10T15:15:06.940095+00:00",
+        "previous_event_hash": "c25fbf9e758021b0499d1b3408b3ecbce75ce93d030f113ae9330f1bad9a6994",
+        "event_hash": "87963f78ddc8410f3c1a124d69ab6275f139bb0b9f0ce1716607a188c0e4ef8e",
+        "signature": "94dea4b6c5ef33d8bf91c1ee50f268f29d560190a8a131e472e06f07cd77269f"
+      },
+      {
+        "case_id": "CASE-UPLOAD-314",
+        "action": "approve",
+        "actor": "Lawyer B",
+        "actor_id": "Lawyer B",
+        "actor_role": "LAWYER",
+        "note": "Legal merit verified",
+        "at": "2026-08-10T15:15:06.961093+00:00",
+        "previous_event_hash": "87963f78ddc8410f3c1a124d69ab6275f139bb0b9f0ce1716607a188c0e4ef8e",
+        "event_hash": "fa7908abb6c1c3a06845556f5c14fd4dc6e11dce57abf810b9355353b7e3fa7c",
+        "signature": "dcded1aeb01f68218bc9d1f0c233dbdf78d74a1ec53eab668bc6817d7715dd2f"
+      },
+      {
+        "case_id": "CASE-UPLOAD-314",
+        "action": "approve",
+        "actor": "Judge C",
+        "actor_id": "Judge C",
+        "actor_role": "JUDGE",
+        "note": "Final order approved",
+        "at": "2026-08-10T15:15:06.975094+00:00",
+        "previous_event_hash": "fa7908abb6c1c3a06845556f5c14fd4dc6e11dce57abf810b9355353b7e3fa7c",
+        "event_hash": "0b2e72aa0527e1d6565f245387eda78235fa09a4d4cfc31bc4851c7a274b776d",
+        "signature": "7e29f3b162ef5794177644e864d6cc9c0355e62b72841460a2be379e3b678c40"
+      }
+    ]
+  },
+  "truth_discovery": {}
+}
