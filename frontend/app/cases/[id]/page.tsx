@@ -12,12 +12,15 @@ import {
   FileSpreadsheet,
   FileText,
   GitCompare,
+  LayoutDashboard,
   Printer,
   Scale,
   ShieldCheck,
+  Users,
 } from "lucide-react";
 import { api, type CaseBundle, type ProofCardPayload } from "../../../lib/api";
 import {
+  CustodyRuler,
   FormAModal,
   GoldenTestBadge,
   PageShell,
@@ -26,6 +29,7 @@ import {
   SkeletonCard,
   SourceConflictPanel,
   StatusBadge,
+  UTRCBenchView,
   WorkflowRail,
 } from "../../components";
 
@@ -36,6 +40,7 @@ export default function CasePage() {
   const [proof, setProof] = useState<ProofCardPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFormAOpen, setIsFormAOpen] = useState(false);
+  const [activeViewMode, setActiveViewMode] = useState<"standard" | "utrc_bench">("standard");
 
   useEffect(() => {
     setBundle(null);
@@ -84,6 +89,24 @@ export default function CasePage() {
       <div className="case-top-actions-ribbon">
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
           <GoldenTestBadge />
+
+          {/* View Mode Toggle: Standard vs UTRC 3-Member Bench */}
+          <div className="view-mode-toggle-group">
+            <button
+              type="button"
+              className={`view-mode-btn ${activeViewMode === "standard" ? "active" : ""}`}
+              onClick={() => setActiveViewMode("standard")}
+            >
+              <LayoutDashboard size={14} /> Standard Review
+            </button>
+            <button
+              type="button"
+              className={`view-mode-btn ${activeViewMode === "utrc_bench" ? "active" : ""}`}
+              onClick={() => setActiveViewMode("utrc_bench")}
+            >
+              <Users size={14} /> UTRC Bench Mode (3-Member)
+            </button>
+          </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginLeft: "auto" }}>
@@ -99,7 +122,7 @@ export default function CasePage() {
       </div>
 
       {/* Row 1: Eligibility Signal + Four-Eye Workflow */}
-      <div className="detail-grid" style={{ marginBottom: "24px" }}>
+      <div className="detail-grid" style={{ marginBottom: "20px" }}>
         <section className="panel">
           <p className="eyebrow">ELIGIBILITY SIGNAL</p>
           <div className="decision">
@@ -131,19 +154,29 @@ export default function CasePage() {
         {workflow && <WorkflowRail levels={workflow.levels} nextAction={workflow.next_action} />}
       </div>
 
-      {/* Row 2: B1 Hard Wall Split — Zone 1 (AI Perception) vs Zone 2 (Statutory Rule Engine) */}
-      <div className="detail-grid" style={{ marginBottom: "24px" }}>
-        <ProofCard
-          decision={decision}
-          sources={proof?.sources}
-          documentLines={bundle.document_lines}
-          perceptionInfo={bundle.perception_info}
-        />
-        <RuleChecklist decision={decision} />
-      </div>
+      {/* C1: Dual-Threshold Custody Ruler Progression Gauge */}
+      <CustodyRuler decision={decision} record={record} />
 
-      {/* Row 3: B3 Source Conflict Reconciliation Panel (Truth Hierarchy 3-Column Diff) */}
-      <SourceConflictPanel conflictData={conflicts} caseId={caseId} />
+      {/* UTRC 3-Member Bench Mode View (When selected) */}
+      {activeViewMode === "utrc_bench" ? (
+        <UTRCBenchView bundle={bundle} />
+      ) : (
+        <>
+          {/* Row 2: B1 Hard Wall Split — Zone 1 (AI Perception) vs Zone 2 (Statutory Rule Engine) */}
+          <div className="detail-grid" style={{ marginBottom: "24px" }}>
+            <ProofCard
+              decision={decision}
+              sources={proof?.sources}
+              documentLines={bundle.document_lines}
+              perceptionInfo={bundle.perception_info}
+            />
+            <RuleChecklist decision={decision} />
+          </div>
+
+          {/* Row 3: B3 Source Conflict Reconciliation Panel (Truth Hierarchy 3-Column Diff) */}
+          <SourceConflictPanel conflictData={conflicts} caseId={caseId} />
+        </>
+      )}
 
       {/* B4: Printable S.479 Form-A Bail Petition Modal */}
       <FormAModal
