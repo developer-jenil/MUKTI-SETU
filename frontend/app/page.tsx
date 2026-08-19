@@ -9,7 +9,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { api, type CaseBundle, type Dashboard } from "../lib/api";
 import {
-  CommandPalette, NotificationsPopover, SkeletonRow, StatusBadge, UserDropdown,
+  CommandPalette, NotificationsPopover, SkeletonRow, SovereignHeader, StatusBadge, UserDropdown,
 } from "./components";
 
 function formatNumber(value: number): string {
@@ -47,7 +47,7 @@ function CaseRow({ bundle }: { bundle: CaseBundle }) {
           <b>
             {bundle.prisoner.name}
             {record.is_uploaded && (
-              <span className="flag-pill" style={{ marginLeft: "8px", fontSize: "9px", padding: "2px 6px" }}>
+              <span className="flag-pill" style={{ marginLeft: "8px", fontSize: "12px", padding: "3px 8px" }}>
                 Uploaded
               </span>
             )}
@@ -179,6 +179,7 @@ export default function Home() {
   return (
     <main ref={hero}>
       <a href="#queue" className="skip-link">Skip to review queue</a>
+      <SovereignHeader />
 
       <header className="topbar" ref={topbar}>
         <div className="brand">

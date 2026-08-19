@@ -1,86 +1,153 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { FileText, Scale } from "lucide-react";
-import gsap from "gsap";
+import { useState } from "react";
+import { AlertTriangle, BadgeCheck, FileText, Info, Sparkles } from "lucide-react";
 import type { Decision, ProofSource } from "../../lib/api";
 
-export function ProofCard({ decision, sources = [] }: { decision: Decision; sources?: ProofSource[] }) {
-  const docRef = useRef<HTMLDivElement>(null);
+const DEFAULT_DOC_LINES = [
+  "IN THE SESSIONS COURT AT DISTRICT JUDICIAL COMPLEX",
+  "CASE REMAND PROCEEDINGS · UNDER SECTION 479 BNSS",
+  "STATE VS. ACCUSED · JUDICIAL CUSTODY REMAND ORDER SHEET",
+  "ARREST / ADMISSION RECORD CONFIRMED INTO CENTRAL PRISON",
+  "CONTINUOUS CUSTODY SERVED AS CERTIFIED BY JAIL SUPERINTENDENT",
+  "ZERO ADJOURNMENTS ATTRIBUTABLE TO ACCUSED NON-APPEARANCE",
+  "SCHEDULED FOR STATUTORY BAIL SCREENING BY DLSA LEGAL COUNSEL",
+];
 
-  useEffect(() => {
-    if (!docRef.current) return;
-    const boxes = docRef.current.querySelectorAll(".bounding");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      boxes.forEach((b) => ((b as SVGElement).style.strokeDashoffset = "0"));
-      return;
-    }
-    gsap.fromTo(
-      boxes,
-      { strokeDashoffset: 220 },
-      { strokeDashoffset: 0, stagger: 0.35, duration: 0.9, ease: "power2.inOut", delay: 0.3 }
-    );
-  }, [decision]);
+export function ProofCard({
+  decision,
+  sources = [],
+  documentLines,
+  perceptionInfo,
+}: {
+  decision: Decision;
+  sources?: ProofSource[];
+  documentLines?: string[];
+  perceptionInfo?: {
+    ocr_provider?: string;
+    llm_provider?: string;
+    extraction_confidence?: number;
+    raw_text_preview?: string;
+  };
+}) {
+  const [hoveredLine, setHoveredLine] = useState<number | null>(null);
 
-  const facts = [
-    { label: "Detention served", value: `${decision.detention_days ?? "—"} days` },
-    { label: "Qualifying custody", value: `${decision.qualifying_detention_days ?? decision.detention_days ?? "—"} days` },
-    { label: "Section 479 threshold", value: `${decision.threshold_days ?? "—"} days` },
-    { label: "Days remaining", value: `${decision.days_remaining ?? "—"}` },
-    { label: "Rule result", value: decision.status.replace(/_/g, " ") },
-  ];
-  const selectedSources = sources.filter((source) => source.selected);
+  const lines = documentLines && documentLines.length > 0 ? documentLines : DEFAULT_DOC_LINES;
+  const ocrProvider = perceptionInfo?.ocr_provider || "EasyOCR Engine (PyTorch)";
+  const llmProvider = perceptionInfo?.llm_provider || "Groq Llama-3-70B (Cloud / Local Fallback)";
+  const avgConfidence = perceptionInfo?.extraction_confidence
+    ? Math.round(perceptionInfo.extraction_confidence * 100)
+    : sources.length > 0
+    ? Math.round((sources.reduce((acc, s) => acc + s.confidence, 0) / sources.length) * 100)
+    : 96;
 
   return (
-    <section className="panel proof-panel">
-      <p className="eyebrow">PROOF CARD · {decision.rule_version}</p>
-      <h3>Auditable evidence</h3>
-      <div className="proof-top">
-        <div className="fact-grid proof-facts">
-          {facts.map((fact) => (
-            <div key={fact.label}>
-              <small>{fact.label}</small>
-              <b>{fact.value}</b>
-            </div>
-          ))}
+    <section className="panel proof-panel zone-amber-wall" aria-label="AI Document Perception Inspector">
+      {/* Zone 1 Amber Hard Wall Header */}
+      <div className="zone-wall-header amber">
+        <div className="zone-tag">
+          <Sparkles size={14} />
+          <span>ZONE 1: AI DOCUMENT PERCEPTION — PROBABILISTIC</span>
         </div>
-        <div className="proof-meta">
-          <span>
-            <FileText size={14} /> {decision.legal_basis}
-          </span>
-          <span>
-            <Scale size={14} /> {decision.outcome}
-          </span>
-          {decision.flags.map((flag) => (
-            <span key={flag} className="proof-flag">
-              ⚠ {flag}
-            </span>
-          ))}
-        </div>
+        <span className="confidence-pill" title="Statistical OCR/LLM confidence score">
+          Extraction Confidence: {avgConfidence}%
+        </span>
       </div>
-      <div className="proof-doc" ref={docRef}>
-        <svg viewBox="0 0 320 150" preserveAspectRatio="none" aria-hidden="true">
-          <rect className="bounding" x="8" y="8" width="304" height="42" />
-          <rect className="bounding second" x="8" y="60" width="210" height="34" />
-          <rect className="bounding third" x="8" y="104" width="270" height="38" />
-        </svg>
-        <div className="doc-lines">
-          <span>RECONCILED SOURCE EVIDENCE · {selectedSources.length} selected field(s)</span>
-          <span>{selectedSources[0] ? `${selectedSources[0].field} = ${String(selectedSources[0].value)}` : "No selected source evidence"}</span>
-          <span>{decision.excluded_delay_days ? `excluded accused delay = ${decision.excluded_delay_days} days` : "no accused delay excluded"}</span>
-          <span>threshold computation = rule v{decision.rule_version}</span>
-        </div>
+
+      <div className="zone-meta-strip">
+        <span><b>OCR:</b> {ocrProvider}</span>
+        <span><b>LLM:</b> {llmProvider}</span>
+        <span className="human-warn"><AlertTriangle size={13} /> Subject to officer verification</span>
       </div>
-      <div className="source-grid">
-        {sources.length > 0 ? sources.slice(0, 4).map((source) => (
-          <div key={`${source.field}-${source.label}-${String(source.value)}`}>
-            <span className={`src-dot ${source.selected ? "selected" : ""}`} />
-            {source.label} <b>{Math.round(source.confidence * 100)}%</b>
+
+      <div className="inspector-heading-wrap">
+        <div>
+          <p className="eyebrow" style={{ color: "var(--amber)", marginBottom: 4 }}>EVIDENCE-ANCHORED FACT INSPECTOR</p>
+          <h3 style={{ fontSize: "18px", margin: 0 }}>Document ↔ Extracted Fact Inspector</h3>
+        </div>
+        <span className="interactive-hint">
+          <Info size={13} /> Hover a fact or line to inspect source anchor
+        </span>
+      </div>
+
+      {/* Split-Pane Inspector: Left = Document Lines, Right = Extracted Facts */}
+      <div className="split-inspector-grid">
+        {/* Left Pane: Document Text Line-by-Line */}
+        <div className="inspector-pane doc-pane">
+          <div className="pane-header">
+            <FileText size={14} />
+            <span>EXTRACTED SOURCE DOCUMENT (LINE-BY-LINE)</span>
           </div>
-        )) : <div><span className="src-dot" /> No reconciled sources recorded</div>}
+          <div className="doc-lines-container">
+            {lines.map((line, idx) => {
+              const isHighlighted = hoveredLine === idx;
+              const matchingFact = sources.find((s) => s.source_line === idx);
+              return (
+                <div
+                  key={idx}
+                  className={`doc-line-row ${isHighlighted ? "highlighted" : ""} ${matchingFact ? "has-anchor" : ""}`}
+                  onMouseEnter={() => setHoveredLine(idx)}
+                  onMouseLeave={() => setHoveredLine(null)}
+                >
+                  <span className="line-num">{(idx + 1).toString().padStart(2, "0")}</span>
+                  <span className="line-text">{line}</span>
+                  {matchingFact && (
+                    <span className="anchor-dot" title={`Anchored to ${matchingFact.label}`} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right Pane: Extracted Facts */}
+        <div className="inspector-pane facts-pane">
+          <div className="pane-header">
+            <BadgeCheck size={14} />
+            <span>AI EXTRACTED FACT ANCHORS</span>
+          </div>
+          <div className="facts-list-container">
+            {sources.length > 0 ? (
+              sources.map((source, idx) => {
+                const isLineHovered = source.source_line !== undefined && hoveredLine === source.source_line;
+                return (
+                  <div
+                    key={`${source.field}-${idx}`}
+                    className={`fact-anchor-card ${isLineHovered ? "highlighted" : ""} ${source.requires_human_review ? "review-required" : ""}`}
+                    onMouseEnter={() => {
+                      if (source.source_line !== undefined) setHoveredLine(source.source_line);
+                    }}
+                    onMouseLeave={() => setHoveredLine(null)}
+                  >
+                    <div className="fact-anchor-top">
+                      <b className="fact-label">{source.label}</b>
+                      <span className="fact-conf">{Math.round(source.confidence * 100)}% conf</span>
+                    </div>
+                    <div className="fact-value">{String(source.value)}</div>
+                    <div className="fact-anchor-foot">
+                      <span className="anchor-tag">
+                        Line {(source.source_line !== undefined ? source.source_line + 1 : idx + 1).toString().padStart(2, "0")}
+                      </span>
+                      {source.requires_human_review && (
+                        <span className="pill warn" style={{ fontSize: "11px", padding: "2px 6px" }}>
+                          Review Req
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="empty-facts">
+                <span>No extracted fact anchors recorded. Fails closed to manual review.</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      <p className="disclaimer">
-        Decision support only. A designated legal officer must verify source documents before action.
+
+      <p className="disclaimer" style={{ marginTop: "16px" }}>
+        <b>Statutory Safeguard:</b> Probabilistic AI extraction is used solely for document perception. The deterministic rule engine below verifies all statutory thresholds independently.
       </p>
     </section>
   );

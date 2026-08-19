@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, ChevronRight, Scale, ShieldCheck } from "lucide-react";
+import { SovereignHeader } from "./SovereignHeader";
 
 export interface Breadcrumb {
   label: string;
@@ -21,6 +22,7 @@ export function PageShell({
 }) {
   return (
     <main className="subpage">
+      <SovereignHeader />
       <header className="subnav">
         <div className="subnav-left">
           <Link href="/" className="back">

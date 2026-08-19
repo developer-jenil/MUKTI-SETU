@@ -7,3 +7,7 @@ export * from "./Skeleton";
 export * from "./CommandPalette";
 export * from "./NotificationsPopover";
 export * from "./UserDropdown";
+export * from "./SovereignHeader";
+export * from "./SourceConflictPanel";
+export * from "./FormAModal";
+export * from "./GoldenTestBadge";

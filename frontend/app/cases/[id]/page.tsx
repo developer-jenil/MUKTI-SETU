@@ -5,10 +5,28 @@ export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { AlertTriangle, ArrowUpRight, BadgeCheck, FileText, ShieldCheck } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowUpRight,
+  BadgeCheck,
+  FileSpreadsheet,
+  FileText,
+  GitCompare,
+  Printer,
+  Scale,
+  ShieldCheck,
+} from "lucide-react";
 import { api, type CaseBundle, type ProofCardPayload } from "../../../lib/api";
 import {
-  PageShell, ProofCard, RuleChecklist, SkeletonCard, StatusBadge, WorkflowRail,
+  FormAModal,
+  GoldenTestBadge,
+  PageShell,
+  ProofCard,
+  RuleChecklist,
+  SkeletonCard,
+  SourceConflictPanel,
+  StatusBadge,
+  WorkflowRail,
 } from "../../components";
 
 export default function CasePage() {
@@ -17,6 +35,7 @@ export default function CasePage() {
   const [bundle, setBundle] = useState<CaseBundle | null>(null);
   const [proof, setProof] = useState<ProofCardPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isFormAOpen, setIsFormAOpen] = useState(false);
 
   useEffect(() => {
     setBundle(null);
@@ -50,20 +69,37 @@ export default function CasePage() {
     );
   }
 
-  const { case: record, prisoner, decision, workflow } = bundle;
+  const { case: record, prisoner, decision, workflow, conflicts } = bundle;
   const facts = [
     { label: "Detention served", value: decision.detention_days !== null ? `${decision.detention_days} days` : "—" },
     { label: "Qualifying custody", value: decision.qualifying_detention_days !== null ? `${decision.qualifying_detention_days} days` : "—" },
     { label: "Section 479 threshold", value: decision.threshold_days !== null ? `${decision.threshold_days} days` : "—" },
     { label: "Days remaining", value: decision.days_remaining !== null ? `${decision.days_remaining} days` : "—" },
-    { label: "First-time offender", value: record.first_time_offender === true ? "Verified" : record.first_time_offender === false ? "No" : "Not provided" },
+    { label: "First-time offender", value: record.first_time_offender === true ? "Verified (1/3)" : record.first_time_offender === false ? "No (1/2)" : "Not provided" },
   ];
-
-  const latestDoc = record.documents_list && record.documents_list.length > 0 ? record.documents_list[record.documents_list.length - 1] : null;
 
   return (
     <PageShell eyebrow="CASE INTELLIGENCE" title={`${prisoner.name} · ${caseId}`} breadcrumbs={breadcrumbs}>
-      <div className="detail-grid">
+      {/* Top Action & Compliance Ribbon */}
+      <div className="case-top-actions-ribbon">
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+          <GoldenTestBadge />
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginLeft: "auto" }}>
+          <button
+            type="button"
+            className="primary form-a-btn"
+            onClick={() => setIsFormAOpen(true)}
+            title="Generate official printable S.479 Form-A Bail Application"
+          >
+            <FileSpreadsheet size={16} /> Generate S.479 Form-A Bail Memo (PDF)
+          </button>
+        </div>
+      </div>
+
+      {/* Row 1: Eligibility Signal + Four-Eye Workflow */}
+      <div className="detail-grid" style={{ marginBottom: "24px" }}>
         <section className="panel">
           <p className="eyebrow">ELIGIBILITY SIGNAL</p>
           <div className="decision">
@@ -92,58 +128,30 @@ export default function CasePage() {
           </div>
         </section>
 
-        <section className="panel">
-          <p className="eyebrow">SOURCE TRUTH</p>
-          {latestDoc ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div className="source">
-                <FileText />
-                <span>
-                  <b>Uploaded Document: {latestDoc.filename}</b>
-                  <small>FIR: {latestDoc.fir_number ?? record.fir_number} · Classification: {latestDoc.adjournment?.classification ?? "COURT_DELAY"}</small>
-                </span>
-                <span className={`pill ${latestDoc.requires_human_review ? "warn" : "ok"}`}>
-                  {latestDoc.requires_human_review ? "HUMAN REVIEW REQUIRED" : "OK"}
-                </span>
-              </div>
-              {latestDoc.text_preview && (
-                <div className="proof-doc" style={{ marginTop: "8px" }}>
-                  <div className="doc-lines">
-                    <span>EXTRACTED TEXT PREVIEW · {latestDoc.filename}</span>
-                    <span>{latestDoc.text_preview}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : proof?.sources.length ? (
-            proof.sources.map((source) => (
-              <div key={`${source.field}-${source.label}-${String(source.value)}`} className={`source ${source.requires_human_review ? "warning" : ""}`}>
-                {source.requires_human_review ? <AlertTriangle /> : <FileText />}
-                <span>
-                  <b>{source.label} · {source.field}</b>
-                  <small>{String(source.value)} · {Math.round(source.confidence * 100)}% confidence</small>
-                </span>
-                {source.selected ? <BadgeCheck /> : <AlertTriangle />}
-              </div>
-            ))
-          ) : (
-            <div className="source warning">
-              <AlertTriangle />
-              <span>
-                <b>No reconciled source evidence</b>
-                <small>Manual verification required before action.</small>
-              </span>
-            </div>
-          )}
-        </section>
-      </div>
-
-      <div className="detail-grid">
         {workflow && <WorkflowRail levels={workflow.levels} nextAction={workflow.next_action} />}
-        <ProofCard decision={decision} sources={proof?.sources} />
       </div>
 
-      <RuleChecklist decision={decision} />
+      {/* Row 2: B1 Hard Wall Split — Zone 1 (AI Perception) vs Zone 2 (Statutory Rule Engine) */}
+      <div className="detail-grid" style={{ marginBottom: "24px" }}>
+        <ProofCard
+          decision={decision}
+          sources={proof?.sources}
+          documentLines={bundle.document_lines}
+          perceptionInfo={bundle.perception_info}
+        />
+        <RuleChecklist decision={decision} />
+      </div>
+
+      {/* Row 3: B3 Source Conflict Reconciliation Panel (Truth Hierarchy 3-Column Diff) */}
+      <SourceConflictPanel conflictData={conflicts} caseId={caseId} />
+
+      {/* B4: Printable S.479 Form-A Bail Petition Modal */}
+      <FormAModal
+        isOpen={isFormAOpen}
+        onClose={() => setIsFormAOpen(false)}
+        bundle={bundle}
+        proof={proof}
+      />
     </PageShell>
   );
 }
